@@ -9,6 +9,22 @@ const SECRETKEY = process.env.SECRETKEY;
 const bcrypt = require("bcrypt");
 const SALT = Number(process.env.SALT);
 
+
+
+// get all role function
+const allUser = (req, res) => {
+  userModel
+  .find()
+  .then((result) => {
+    res.status(200).json(result);
+  })
+  .catch((err) => {
+    res.status(400).json(err);
+  });
+}
+
+
+
 // Register function
 const register = async (req, res) => {
 const {email, password, role} = req.body;
@@ -63,4 +79,4 @@ const logIn = (req, res) => {
 };
 
 
-module.exports = {register, logIn};
+module.exports = {register, logIn, allUser};
