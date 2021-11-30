@@ -10,6 +10,8 @@ const userRouter = require('./Routers/Routes/user');
 app.use("/user", userRouter);
 const roleRouter = require('./Routers/Routes/role')
 app.use("/role", roleRouter);
+const taskRouter = require('./Routers/Routes/task')
+app.use("/tasks", taskRouter);
 
 app.use(express.json())
 

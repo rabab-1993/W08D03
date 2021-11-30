@@ -6,7 +6,7 @@ const taskModel = require('../../db/model/task');
 //  new task function
 const newTask = (req ,res) => {
     const { name, isDeleted} = req.body;
-    const creatTask = new newTask({
+    const newTask = new taskModel({
         name,
         isDeleted
     });
@@ -20,3 +20,6 @@ const newTask = (req ,res) => {
       res.status(400).json(err);
     });  
 }
+
+
+module.exports = {newTask}
