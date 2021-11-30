@@ -1,4 +1,5 @@
 const userModel = require("../../db/model/user");
+const taskMdel =require('../../db/model/task')
 const dotenv = require("dotenv"); 
 dotenv.config();
 
@@ -79,4 +80,28 @@ const logIn = (req, res) => {
 };
 
 
-module.exports = {register, logIn, allUser};
+// delete user function
+
+const deleteUser = async (req, res) => {
+  const {_id} = req.body;
+  userModel.findById({_id}).then((result) => {
+    console.log(result);
+    if (result) {
+      userModel.deleteOne({ _id }, function (err) {
+        if (err) return handleError(err);
+      });
+      taskModel.deleteMany({ user: _id }, function (err) {
+        if (err) return handleError(err);
+      });
+
+      res.status(200).json("done");
+    } else {
+      return res.status(404).json("user not found");
+    }
+  })
+  .catch((err) => {
+    res.status(400).json(err);
+  });
+}
+
+module.exports = {register, logIn, allUser, deleteUser};
