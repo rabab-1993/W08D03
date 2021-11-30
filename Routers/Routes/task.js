@@ -2,7 +2,7 @@ const express = require("express");
 const taskRouter = express.Router();
 
 
-const {newTask, allTasks, tasksId} = require('../Controllers/task')
+const {newTask, allTasks, tasksId, updateTask} = require('../Controllers/task')
 
 
 
@@ -10,5 +10,7 @@ const {newTask, allTasks, tasksId} = require('../Controllers/task')
 taskRouter.post("/task", newTask)
 taskRouter.get("/", allTasks)
 taskRouter.get("/id", tasksId)
+taskRouter.get("/id", tasksId)
+taskRouter.put("/update", updateTask)
 
 module.exports = taskRouter;

@@ -61,10 +61,24 @@ const {_id} = req.body
 //   }
 
 
-//   // update tasks function
-//   const updateTask = (req, res) => {
+// update tasks function
+  const updateTask = async (req, res) => {
+      const {name, _id} = req.body;
+     await taskModel.findOneAndUpdate(
+          {"_id":_id},
+           {$set: {"name": name}},
+           { new: true}
+         )
 
-//   }
+    taskModel
+    .findById({_id})
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+  }
 
 
-module.exports = {newTask, allTasks, tasksId}
+module.exports = {newTask, allTasks, tasksId, updateTask}
