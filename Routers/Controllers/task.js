@@ -33,6 +33,38 @@ const allTasks = (req, res) => {
       res.status(400).json(err);
     });
   }
+// get tasks by id function
+const tasksId = (req, res) => {
+const {_id} = req.body
+    taskModel
+    .findById({_id})
+    .then((result) => {
+        if(result.isDeleted == true) {
+            res.json({massege: "this task has been deleted"});
+        }
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+  }
+// // get all tasks that not deleted function
+// const allTasks = (req, res) => {
+//     taskModel
+//     .find()
+//     .then((result) => {
+//       res.status(200).json(result);
+//     })
+//     .catch((err) => {
+//       res.status(400).json(err);
+//     });
+//   }
 
 
-module.exports = {newTask, allTasks}
+//   // update tasks function
+//   const updateTask = (req, res) => {
+
+//   }
+
+
+module.exports = {newTask, allTasks, tasksId}
