@@ -5,7 +5,7 @@ const { creatRole, allRole } = require('../Controllers/role');
 
 
 roleRouter.get("/", allRole)
-roleRouter.post("/register", creatRole)
+roleRouter.post("/create", creatRole)
 
 
 

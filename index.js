@@ -1,19 +1,28 @@
 const express = require("express");
 const dotenv = require("dotenv"); 
 dotenv.config();
-
 const mongoose = require("mongoose");
 const app = express()
 
+
+// app level middleware
+app.use(express.json())
+
+
 // import all routers
+
+// user router
 const userRouter = require('./Routers/Routes/user');
 app.use("/user", userRouter);
+// role router
 const roleRouter = require('./Routers/Routes/role')
 app.use("/role", roleRouter);
+// task router
 const taskRouter = require('./Routers/Routes/task')
 app.use("/tasks", taskRouter);
 
-app.use(express.json())
+
+
 
 const PORT = process.env.PORT || 4000;
 
