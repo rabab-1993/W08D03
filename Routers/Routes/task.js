@@ -1,16 +1,20 @@
 const express = require("express");
 const taskRouter = express.Router();
 
-
-const {newTask, allTasks, tasksId, updateTask} = require('../Controllers/task')
-
-
+const {
+  newTask,
+  allTasks,
+  tasksId,
+  updateTask,
+  deleteTask,
+} = require("../Controllers/task");
 
 // taskRouter.get("/", allRole)
-taskRouter.post("/task", newTask)
-taskRouter.get("/", allTasks)
-taskRouter.get("/id", tasksId)
-taskRouter.get("/id", tasksId)
-taskRouter.put("/update", updateTask)
+taskRouter.post("/task", newTask);
+taskRouter.get("/", allTasks);
+taskRouter.get("/id", tasksId);
+taskRouter.get("/id", tasksId);
+taskRouter.put("/update", updateTask);
+taskRouter.delete("/delete", deleteTask);
 
 module.exports = taskRouter;

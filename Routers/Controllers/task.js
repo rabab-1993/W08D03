@@ -33,6 +33,8 @@ const allTasks = (req, res) => {
       res.status(400).json(err);
     });
   }
+
+
 // get tasks by id function
 const tasksId = (req, res) => {
 const {_id} = req.body
@@ -48,17 +50,31 @@ const {_id} = req.body
       res.status(400).json(err);
     });
   }
-// // get all tasks that not deleted function
-// const allTasks = (req, res) => {
-//     taskModel
-//     .find()
-//     .then((result) => {
-//       res.status(200).json(result);
-//     })
-//     .catch((err) => {
-//       res.status(400).json(err);
-//     });
-//   }
+
+
+// soft delete task function
+const deleteTask = (req, res) => {
+    const {isDeleted, _id} = req.body;
+    taskModel.findById({_id}).then(async (result) =>{
+        if(result.isDeleted == true) {
+            return res.json({massege: "this task already have been deleted"})
+        } else {
+            await taskModel.findOneAndUpdate(
+                {"_id":_id},
+                 {$set: {"isDeleted": isDeleted}},
+              //    { new: true}
+               )
+        }
+    })
+    taskModel
+    .find({_id})
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+  }
 
 
 // update tasks function
@@ -81,4 +97,4 @@ const {_id} = req.body
   }
 
 
-module.exports = {newTask, allTasks, tasksId, updateTask}
+module.exports = {newTask, allTasks, tasksId, updateTask, deleteTask}
