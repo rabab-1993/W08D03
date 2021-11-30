@@ -22,10 +22,10 @@ const newTask = (req ,res) => {
 }
 
 
-// get all tasks function
+// get all not deleted tasks function
 const allTasks = (req, res) => {
     taskModel
-    .find()
+    .find({ isDeleted: false })
     .then((result) => {
       res.status(200).json(result);
     })
@@ -37,6 +37,21 @@ const allTasks = (req, res) => {
 
 // get tasks by id function
 const tasksId = (req, res) => {
+const {_id} = req.body
+    taskModel
+    .findById({_id})
+    .then((result) => {
+        if(result.isDeleted == true) {
+            res.json({massege: "this task has been deleted"});
+        }
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+  }
+// get tasks if is deleted function
+const isDeletedTask = (req, res) => {
 const {_id} = req.body
     taskModel
     .findById({_id})
@@ -97,4 +112,4 @@ const deleteTask = (req, res) => {
   }
 
 
-module.exports = {newTask, allTasks, tasksId, updateTask, deleteTask}
+module.exports = {newTask, allTasks, tasksId, updateTask, deleteTask, isDeletedTask}
